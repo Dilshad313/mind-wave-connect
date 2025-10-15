@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import Header from "@/components/layout/Header";
 import { Heart, User, Stethoscope, Building2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { connectToDatabase } from "@/lib/mongodb";
 
 type UserRole = "user" | "doctor" | "hospital_admin";
 

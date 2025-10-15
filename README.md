@@ -1,73 +1,88 @@
-# Welcome to your Lovable project
+# Mind Wave Connect
 
-## Project info
+A platform for sharing and discovering ideas, thoughts, and "brainwaves" from a community of creative minds.
 
-**URL**: https://lovable.dev/projects/8d61b4e9-c0a3-46b8-9405-51f8a5a2384b
+## Features
 
-## How can I edit this code?
+- User authentication and profiles
+- Create, read, update, and delete brainwaves
+- Like and comment on brainwaves
+- Search and filter brainwaves
+- Category-based organization
+- Public vs private brainwaves
 
-There are several ways of editing your application.
+## New Enhanced Features
 
-**Use Lovable**
+- **Categories API**: Get all available categories or filter by category
+- **Trending Brainwaves**: Get most liked brainwaves
+- **Advanced Search**: Filter by keyword, category, tags, and date range
+- **User Brainwaves**: Get brainwaves by specific user
+- **Improved Pagination**: Better control over page size and sorting
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8d61b4e9-c0a3-46b8-9405-51f8a5a2384b) and start prompting.
+## API Endpoints
 
-Changes made via Lovable will be committed automatically to this repo.
+### Authentication
+- `POST /api/users/login` - User login
+- `POST /api/users` - Register new user
+- `GET /api/users/profile` - Get user profile (requires auth)
+- `PUT /api/users/profile` - Update user profile (requires auth)
 
-**Use your preferred IDE**
+### Brainwaves
+- `GET /api/brainwaves` - Get all brainwaves
+- `POST /api/brainwaves` - Create new brainwave (requires auth)
+- `GET /api/brainwaves/:id` - Get brainwave by ID
+- `PUT /api/brainwaves/:id` - Update brainwave (requires auth)
+- `DELETE /api/brainwaves/:id` - Delete brainwave (requires auth)
+- `POST /api/brainwaves/:id/comments` - Add comment (requires auth)
+- `PUT /api/brainwaves/:id/like` - Like/unlike brainwave (requires auth)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Enhanced Brainwave Features
+- `GET /api/extra/categories` - Get all brainwave categories
+- `GET /api/extra/category/:category` - Get brainwaves by category
+- `GET /api/extra/trending` - Get trending brainwaves
+- `GET /api/extra/user/:userId` - Get brainwaves by user
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Setup
 
-Follow these steps:
+1. Clone the repository
+2. Install dependencies: `npm install` or `bun install`
+3. Setup MongoDB:
+   - Install MongoDB Community Edition on your system
+   - Create the data directory: `md \data\db` (on Windows)
+   - Start MongoDB service: `net start MongoDB` (on Windows)
+4. Create a `.env` file with the following:
+   ```
+   MONGODB_URI=mongodb://localhost:27017/mindwave
+   JWT_SECRET=your-secret-key
+   PORT=5000
+   NODE_ENV=development
+   ```
+5. Run the application:
+   - Backend: `npm run dev:server`
+   - Frontend: `npm run dev:client`
+   - Both: `npm run dev:all`
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Development
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- The backend runs on port 5000 by default
+- The frontend runs on port 5173 by default (Vite default)
+- Use `npm run dev:all` to run both simultaneously
+- Use `npm run build` to build for production
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Technologies Used
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+- Node.js & Express.js (Backend)
+- React & TypeScript (Frontend)
+- MongoDB & Mongoose (Database)
+- Vite (Build tool)
+- Tailwind CSS (Styling)
+- bcryptjs (Password hashing)
+- jwt (Authentication)
 
-**Edit a file directly in GitHub**
+## Contributing
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/8d61b4e9-c0a3-46b8-9405-51f8a5a2384b) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
