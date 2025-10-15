@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const API_URL = (import.meta as any).env?.VITE_API_URL || '/api';
+interface ImportMeta {
+  env: {
+    VITE_API_URL?: string;
+  };
+}
+
+const API_URL = (import.meta as ImportMeta).env?.VITE_API_URL || '/api';
 
 // Create axios instance
 const api = axios.create({
@@ -32,7 +38,14 @@ export const registerUser = (name: string, email: string, password: string) =>
 export const getUserProfile = () => 
   api.get('/users/profile');
 
-export const updateUserProfile = (userData: any) => 
+interface UserProfileData {
+  name?: string;
+  email?: string;
+  password?: string;
+  profilePicture?: string;
+}
+
+export const updateUserProfile = (userData: UserProfileData) =>
   api.put('/users/profile', userData);
 
 // Brainwave API calls
@@ -42,10 +55,19 @@ export const getBrainwaves = (keyword = '', pageNumber = 1) =>
 export const getBrainwaveById = (id: string) => 
   api.get(`/brainwaves/${id}`);
 
-export const createBrainwave = (brainwaveData: any) => 
+interface BrainwaveData {
+  title?: string;
+  description?: string;
+  category?: string;
+  content?: string;
+  tags?: string[];
+  isPublic?: boolean;
+}
+
+export const createBrainwave = (brainwaveData: BrainwaveData) =>
   api.post('/brainwaves', brainwaveData);
 
-export const updateBrainwave = (id: string, brainwaveData: any) => 
+export const updateBrainwave = (id: string, brainwaveData: BrainwaveData) =>
   api.put(`/brainwaves/${id}`, brainwaveData);
 
 export const deleteBrainwave = (id: string) => 

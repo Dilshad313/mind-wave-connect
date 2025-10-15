@@ -1,88 +1,96 @@
-# Mind Wave Connect
+# MindWave - AI-Based Mental Well-being Platform
 
-A platform for sharing and discovering ideas, thoughts, and "brainwaves" from a community of creative minds.
+MindWave is a full-stack MERN application designed to be a comprehensive mental well-being platform. It connects patients with doctors and hospitals, provides an AI-powered chatbot for emotional support, and allows users to track their mood and progress over time.
 
 ## Features
 
-- User authentication and profiles
-- Create, read, update, and delete brainwaves
-- Like and comment on brainwaves
-- Search and filter brainwaves
-- Category-based organization
-- Public vs private brainwaves
+-   **User Roles:** User, Doctor, Hospital Admin, and Super Admin with role-based access control.
+-   **Authentication:** JWT-based authentication with access and refresh tokens.
+-   **AI Chatbot:** An empathetic AI chatbot for immediate support.
+-   **Mood Tracking:** Users can log their mood and view trends over time.
+-   **Appointment Booking:** (Mocked) Users can book, view, and manage appointments with doctors.
+-   **Real-time Chat:** Socket.IO-powered real-time chat between users and doctors.
+-   **Dockerized:** The entire application is containerized for easy setup and deployment.
 
-## New Enhanced Features
+## Tech Stack
 
-- **Categories API**: Get all available categories or filter by category
-- **Trending Brainwaves**: Get most liked brainwaves
-- **Advanced Search**: Filter by keyword, category, tags, and date range
-- **User Brainwaves**: Get brainwaves by specific user
-- **Improved Pagination**: Better control over page size and sorting
+**Frontend:**
 
-## API Endpoints
+-   React 18+ with TypeScript
+-   Vite
+-   React Router v6
+-   Zustand for state management
+-   React Query for data fetching
+-   TailwindCSS for styling
+-   Axios for HTTP requests
+-   Socket.IO Client
 
-### Authentication
-- `POST /api/users/login` - User login
-- `POST /api/users` - Register new user
-- `GET /api/users/profile` - Get user profile (requires auth)
-- `PUT /api/users/profile` - Update user profile (requires auth)
+**Backend:**
 
-### Brainwaves
-- `GET /api/brainwaves` - Get all brainwaves
-- `POST /api/brainwaves` - Create new brainwave (requires auth)
-- `GET /api/brainwaves/:id` - Get brainwave by ID
-- `PUT /api/brainwaves/:id` - Update brainwave (requires auth)
-- `DELETE /api/brainwaves/:id` - Delete brainwave (requires auth)
-- `POST /api/brainwaves/:id/comments` - Add comment (requires auth)
-- `PUT /api/brainwaves/:id/like` - Like/unlike brainwave (requires auth)
+-   Node.js 18+ with Express and TypeScript
+-   MongoDB with Mongoose
+-   Socket.IO Server
+-   JWT for authentication
+-   bcryptjs for password hashing
+-   Zod for validation
 
-### Enhanced Brainwave Features
-- `GET /api/extra/categories` - Get all brainwave categories
-- `GET /api/extra/category/:category` - Get brainwaves by category
-- `GET /api/extra/trending` - Get trending brainwaves
-- `GET /api/extra/user/:userId` - Get brainwaves by user
+## Getting Started
 
-## Setup
+### Prerequisites
 
-1. Clone the repository
-2. Install dependencies: `npm install` or `bun install`
-3. Setup MongoDB:
-   - Install MongoDB Community Edition on your system
-   - Create the data directory: `md \data\db` (on Windows)
-   - Start MongoDB service: `net start MongoDB` (on Windows)
-4. Create a `.env` file with the following:
-   ```
-   MONGODB_URI=mongodb://localhost:27017/mindwave
-   JWT_SECRET=your-secret-key
-   PORT=5000
-   NODE_ENV=development
-   ```
-5. Run the application:
-   - Backend: `npm run dev:server`
-   - Frontend: `npm run dev:client`
-   - Both: `npm run dev:all`
+-   [Node.js](https://nodejs.org/en/) (v18 or higher)
+-   [Docker](https://www.docker.com/products/docker-desktop/) and Docker Compose
 
-## Development
+### Local Development (with Docker)
 
-- The backend runs on port 5000 by default
-- The frontend runs on port 5173 by default (Vite default)
-- Use `npm run dev:all` to run both simultaneously
-- Use `npm run build` to build for production
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/mindwave.git
+    cd mindwave
+    ```
 
-## Technologies Used
+2.  **Create a `.env` file:**
+    Create a `.env` file in the root of the project and copy the contents of `.env.example`.
 
-- Node.js & Express.js (Backend)
-- React & TypeScript (Frontend)
-- MongoDB & Mongoose (Database)
-- Vite (Build tool)
-- Tailwind CSS (Styling)
-- bcryptjs (Password hashing)
-- jwt (Authentication)
+3.  **Run the application:**
+    ```bash
+    docker-compose up --build
+    ```
+    The application will be available at `http://localhost:5173` and the backend at `http://localhost:5000`.
 
-## Contributing
+### Local Development (without Docker)
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+1.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+2.  **Set up MongoDB:**
+    Make sure you have a local MongoDB instance running.
+
+3.  **Create a `.env` file:**
+    Create a `.env` file in the root of the project and copy the contents of `.env.example`. Update the `MONGO_URI` if your MongoDB instance is not running on the default port.
+
+4.  **Run the application:**
+    ```bash
+    npm run dev:all
+    ```
+
+## Environment Variables
+
+The `.env.example` file contains all the necessary environment variables. Copy this file to `.env` and fill in the values.
+
+-   `MONGO_URI`: Your MongoDB connection string.
+-   `JWT_SECRET`: A secret key for signing JWTs.
+-   `PORT`: The port for the backend server.
+-   `OPENAI_API_KEY`: (Optional) Your OpenAI API key for the AI chatbot.
+
+## Seeding the Database
+
+To populate the database with mock data, run the following command:
+
+```bash
+npm run seed
+```
+
+This will create a set of users, doctors, hospitals, and appointments.

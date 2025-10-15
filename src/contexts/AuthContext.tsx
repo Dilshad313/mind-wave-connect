@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { AxiosError } from 'axios';
 import { loginUser, registerUser, getUserProfile } from '../lib/api';
 
 interface User {
@@ -72,8 +73,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data));
       localStorage.setItem('userToken', data.token);
       setUser(data);
-    } catch (error: any) {
-      setError(error.response?.data?.message || 'Invalid email or password');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError(error.response?.data?.message || 'Invalid email or password');
+      }
     } finally {
       setLoading(false);
     }
@@ -87,8 +90,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(data));
       localStorage.setItem('userToken', data.token);
       setUser(data);
-    } catch (error: any) {
-      setError(error.response?.data?.message || 'Registration failed');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError(error.response?.data?.message || 'Registration failed');
+      }
     } finally {
       setLoading(false);
     }
